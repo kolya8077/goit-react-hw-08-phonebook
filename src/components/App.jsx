@@ -16,14 +16,13 @@ export default function App() {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    const parsedContacts = JSON.parse(window.localStorage.getItem('contacts'));
+    const contacts = window.localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
 
     if (parsedContacts) {
-      setContacts(parsedContacts);
-    } else {
-      return;
+      setContacts(parsedContacts)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
