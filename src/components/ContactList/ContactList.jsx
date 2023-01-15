@@ -1,15 +1,37 @@
 import { Ul, Span, Item } from 'components/ContactList/contactList.styled';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeContact } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import { getContacts, getFilter } from 'redux/selectors';
 
-export const ContactList = ({ events, onDeliteItem }) => {
+export const ContactList = () => {
+  const contactsList = useSelector(getContacts);
+  const filterValue = useSelector(getFilter);
+
+  const dispatch = useDispatch();
+
+  const handelDelete = () => dispatch(removeContact(contactsList.id));
+
+
+  const getVisibleList = () => {
+    const normalizedFilter = filterValue.toLowerCase();
+
+    return contactsList.filter(list =>
+      list.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  const visibleList = getVisibleList();
+
   return (
     <Ul>
-      {events.map(({ name, number, id }) => (
+      {visibleList.map(({ name, number, id }) => (
         <Item key={id}>
           <Span>
             {name}: {number}
           </Span>
-          <button type="button" onClick={() => onDeliteItem(id)}>
+          <button type="button" onClick={handelDelete}>
             delete
           </button>
         </Item>
@@ -26,5 +48,4 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  onDeliteItem: PropTypes.func.isRequired,
 };
