@@ -16,7 +16,6 @@ export const ContactList = () => {
 
   const getVisibleList = () => {
     const normalizedFilter = filterValue.toLowerCase();
-
     return contactsList.filter(list =>
       list.name.toLowerCase().includes(normalizedFilter)
     );

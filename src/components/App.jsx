@@ -1,13 +1,9 @@
-
 import ContactForm from 'components/ContactForm/ContactForm';
 import { Container, FormEl, TitleContacts } from 'components/app.styled';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 
-
-
 export default function App() {
-
   return (
     <Container>
       <FormEl>
@@ -16,8 +12,8 @@ export default function App() {
 
       <div>
         <TitleContacts>Contacts</TitleContacts>
-        <Filter/>
-        <ContactList/>
+        <Filter />
+        <ContactList />
       </div>
     </Container>
   );
