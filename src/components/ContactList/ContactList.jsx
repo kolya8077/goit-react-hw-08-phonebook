@@ -11,7 +11,9 @@ export const ContactList = () => {
 
   const dispatch = useDispatch();
 
-  const handelDelete = () => dispatch(removeContact(contactsList.id));
+  const handelDelete = (e) => {
+    dispatch(removeContact(e))
+  };
 
 
   const getVisibleList = () => {
@@ -30,7 +32,7 @@ export const ContactList = () => {
           <Span>
             {name}: {number}
           </Span>
-          <button type="button" onClick={handelDelete}>
+          <button type="button" onClick={() => handelDelete(id)}>
             delete
           </button>
         </Item>

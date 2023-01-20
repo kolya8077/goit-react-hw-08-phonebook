@@ -33,7 +33,7 @@ const contactsSlice = createSlice({
     },
     removeContact: {
       reducer(state, action) {
-        const index = state.data.findIndex(state => state.id === action.id);
+        const index = state.data.findIndex(state => state.id === action.payload);
         state.data.splice(index, 1);
       },
     },
