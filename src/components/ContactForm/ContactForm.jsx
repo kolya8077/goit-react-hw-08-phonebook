@@ -36,7 +36,7 @@ export default function ContactForm() {
       name: name,
       number: number
     }
-    console.log(addContact);
+
     addContact(contact);
     form.reset();
   };
