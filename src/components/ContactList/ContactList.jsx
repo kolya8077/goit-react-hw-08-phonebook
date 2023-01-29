@@ -1,24 +1,25 @@
 import { Ul, Span, Item } from 'components/ContactList/contactList.styled';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { removeContact } from 'redux/contactsSlice';
+// import { useDispatch } from 'react-redux';
+// import { removeContact } from 'redux/contactsSlice';
 import { useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
+import { getFilter } from 'redux/selectors';
+import {
+  useGetContactsQuery,
+  useDeleteContactsMutation,
+} from 'redux/operations';
 
 export const ContactList = () => {
-  const contactsList = useSelector(getContacts);
   const filterValue = useSelector(getFilter);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handelDelete = (e) => {
-    dispatch(removeContact(e))
-  };
-
+  const { data } = useGetContactsQuery();
+  const [deleteContact, {isLoading}] = useDeleteContactsMutation();
 
   const getVisibleList = () => {
     const normalizedFilter = filterValue.toLowerCase();
-    return contactsList.filter(list =>
+    return data?.filter(list =>
       list.name.toLowerCase().includes(normalizedFilter)
     );
   };
@@ -26,18 +27,28 @@ export const ContactList = () => {
   const visibleList = getVisibleList();
 
   return (
-    <Ul>
-      {visibleList.map(({ name, number, id }) => (
-        <Item key={id}>
-          <Span>
-            {name}: {number}
-          </Span>
-          <button type="button" onClick={() => handelDelete(id)}>
-            delete
-          </button>
-        </Item>
-      ))}
-    </Ul>
+    <>
+      {data && (
+        <Ul>
+          {visibleList.map(({ name, number, id }) => (
+            <Item key={id}>
+              <Span>
+                {name}: {number}
+              </Span>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteContact(id);
+                }}
+                disabled={isLoading}
+              >
+                delete
+              </button>
+            </Item>
+          ))}
+        </Ul>
+      )}
+    </>
   );
 };
 
