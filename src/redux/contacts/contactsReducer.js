@@ -16,11 +16,11 @@ const handleRejected = (state, action) => {
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: { entities: [], isLoading: false, error: null },
+  initialState: { items: [], isLoading: false, error: null },
   extraReducers: builder => {
     builder.addCase(fetchContacts.pending, handlePending);
-    builder.addCase(fetchContacts.fulfilled, (state, actions) => {
-      state.entities = actions.payload;
+    builder.addCase(fetchContacts.fulfilled, (state, action) => {
+      state.items = action.payload;
       state.isLoading = false;
       state.error = null;
     });
@@ -29,7 +29,7 @@ const contactsSlice = createSlice({
     builder.addCase(fetchAddContacts.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.entities.push(action.payload);
+      state.items.push(action.payload);
     });
     builder.addCase(fetchAddContacts.rejected, handleRejected);
     builder.addCase(fetchContactsDelete.pending, handlePending);
@@ -37,10 +37,10 @@ const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       
-      const index = state.entities.findIndex(contacts => {
-        return contacts.id === action.payload.id;
+      const index = state.items.findIndex(contact => {
+        return contact.id === action.payload.id;
       });
-      state.entities.splice(index, 1);
+      state.items.splice(index, 1);
     });
     builder.addCase(fetchContactsDelete.rejected, handleRejected);
   },
