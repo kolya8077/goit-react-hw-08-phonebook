@@ -1,25 +1,28 @@
 import { Ul, Span, Item } from 'components/ContactList/contactList.styled';
 import PropTypes from 'prop-types';
-// import { useDispatch } from 'react-redux';
-// import { removeContact } from 'redux/contactsSlice';
-import { useSelector } from 'react-redux';
-import { getFilter } from 'redux/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import {
-  useGetContactsQuery,
-  useDeleteContactsMutation,
-} from 'redux/operations';
+  fetchContacts,
+  fetchContactsDelete,
+} from 'redux/contacts/contactsOperations';
+import { getFilter, getContacts, getIsLoading } from 'redux/selectors';
 
 export const ContactList = () => {
   const filterValue = useSelector(getFilter);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
-  const { data } = useGetContactsQuery();
-  const [deleteContact, {isLoading}] = useDeleteContactsMutation();
+  const { isLoading } = useSelector(getIsLoading);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const getVisibleList = () => {
     const normalizedFilter = filterValue.toLowerCase();
-    return data?.filter(list =>
+    return contacts?.filter(list =>
       list.name.toLowerCase().includes(normalizedFilter)
     );
   };
@@ -28,7 +31,7 @@ export const ContactList = () => {
 
   return (
     <>
-      {data && (
+      {contacts && (
         <Ul>
           {visibleList.map(({ name, number, id }) => (
             <Item key={id}>
@@ -38,7 +41,7 @@ export const ContactList = () => {
               <button
                 type="button"
                 onClick={() => {
-                  deleteContact(id);
+                  dispatch(fetchContactsDelete(id));
                 }}
                 disabled={isLoading}
               >

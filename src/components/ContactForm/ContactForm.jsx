@@ -1,16 +1,14 @@
 import { Name, Number, Label } from 'components/ContactForm/contactForm.styled';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { addContact } from 'redux/contactsSlice';
-// import { getContacts } from 'redux/selectors';
-import { useGetContactsQuery, useAddContactsMutation } from 'redux/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, getIsLoading } from 'redux/selectors';
+import { fetchAddContacts } from 'redux/contacts/contactsOperations';
 
 export default function ContactForm() {
-  // const contactsList = useSelector(getContacts);
+  const contactsList = useSelector(getContacts);
 
-  // const dispatch = useDispatch();
+  const { isLoading } = useSelector(getIsLoading);
 
-  const { data } = useGetContactsQuery();
-  const [addContact] = useAddContactsMutation();
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -18,13 +16,13 @@ export default function ContactForm() {
     const name = form.elements.name.value;
     const number = form.elements.number.value;
 
-    if (data.find(contacts => contacts.number === number)) {
+    if (contactsList.find(contacts => contacts.number === number)) {
       alert(`${number} is already in contacts.`);
       return form.reset();
     }
 
     if (
-      data.find(
+      contactsList.find(
         contacts =>
           contacts.name.toLocaleLowerCase() === name.toLocaleLowerCase()
       )
@@ -34,10 +32,10 @@ export default function ContactForm() {
     }
     const contact = {
       name: name,
-      number: number
-    }
+      number: number,
+    };
 
-    addContact(contact);
+    dispatch(fetchAddContacts(contact));
     form.reset();
   };
 
@@ -65,7 +63,9 @@ export default function ContactForm() {
           required
         />
       </Label>
-      <button type="submit">Add contact</button>
+      <button type="submit" disabled={isLoading}>
+        Add contact
+      </button>
     </form>
   );
 }
