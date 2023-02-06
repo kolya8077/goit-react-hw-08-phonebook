@@ -1,5 +1,5 @@
 import { Form } from './login.styled';
-import { Input, Button } from '@chakra-ui/react';
+import { Input, Button, FormLabel } from '@chakra-ui/react';
 
 import { PasswordInput } from './PasswordInput';
 
@@ -15,7 +15,6 @@ export const LogIn = () => {
     const email = form.elements.email.value;
     const password = form.elements.password.value;
 
-
     dispatch(logIn({ email, password }));
 
     form.reset();
@@ -24,7 +23,9 @@ export const LogIn = () => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
+        <FormLabel>email</FormLabel>
         <Input name="email" placeholder="email" />
+        <FormLabel>password</FormLabel>
         <PasswordInput />
         <Button type="submit" colorScheme="green">
           Log in

@@ -1,8 +1,12 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.section`
-  padding: 25px;
+  padding: 50px;
   width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const FormEl = styled.div`
