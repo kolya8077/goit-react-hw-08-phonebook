@@ -1,5 +1,5 @@
 import { Input } from '@chakra-ui/react';
-import { FilterEl, InputEl, Label } from 'components/Filter/filter.styled'
+import { FilterEl } from 'components/Filter/filter.styled'
 import { useDispatch } from 'react-redux';
 import { filter } from 'redux/filterSlice';
 
