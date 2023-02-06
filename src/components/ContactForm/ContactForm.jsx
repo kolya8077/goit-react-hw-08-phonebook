@@ -2,6 +2,8 @@ import { Name, Number, Label } from 'components/ContactForm/contactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getIsLoading } from 'redux/selectors';
 import { fetchAddContacts } from 'redux/contacts/contactsOperations';
+import { Input, Button } from '@chakra-ui/react';
+
 
 export default function ContactForm() {
   const contactsList = useSelector(getContacts);
@@ -44,7 +46,7 @@ export default function ContactForm() {
       <h2>Phonebook</h2>
       <Label>
         <Name>Name</Name>
-        <input
+        <Input
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -55,7 +57,7 @@ export default function ContactForm() {
       <br />
       <Label>
         <Number>Number</Number>
-        <input
+        <Input
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -63,9 +65,16 @@ export default function ContactForm() {
           required
         />
       </Label>
-      <button type="submit" disabled={isLoading}>
+      <Button
+        isLoading={isLoading}
+        loadingText="Submitting"
+        colorScheme="green"
+        variant="outline"
+        type="submit"
+        
+      >
         Add contact
-      </button>
+      </Button>
     </form>
   );
 }

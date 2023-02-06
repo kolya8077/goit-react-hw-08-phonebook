@@ -7,6 +7,7 @@ import {
   fetchContactsDelete,
 } from 'redux/contacts/contactsOperations';
 import { getFilter, getContacts, getIsLoading } from 'redux/selectors';
+import { Button } from '@chakra-ui/react';
 
 export const ContactList = () => {
   const filterValue = useSelector(getFilter);
@@ -38,7 +39,7 @@ export const ContactList = () => {
               <Span>
                 {name}: {number}
               </Span>
-              <button
+              {/* <button
                 type="button"
                 onClick={() => {
                   dispatch(fetchContactsDelete(id));
@@ -46,7 +47,19 @@ export const ContactList = () => {
                 disabled={isLoading}
               >
                 delete
-              </button>
+              </button> */}
+              <Button
+                onClick={() => {
+                  dispatch(fetchContactsDelete(id));
+                }}
+                isLoading={isLoading}
+                loadingText="Submitting"
+                colorScheme="red"
+                variant="outline"
+                size="xs"
+              >
+                Delete
+              </Button>
             </Item>
           ))}
         </Ul>

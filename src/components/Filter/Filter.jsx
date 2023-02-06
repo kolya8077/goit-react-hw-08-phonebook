@@ -1,4 +1,5 @@
-import { FilterEl } from 'components/Filter/filter.styled'
+import { Input } from '@chakra-ui/react';
+import { FilterEl, InputEl, Label } from 'components/Filter/filter.styled'
 import { useDispatch } from 'react-redux';
 import { filter } from 'redux/filterSlice';
 
@@ -15,7 +16,7 @@ export const Filter = () => {
   return (
     <label>
       <FilterEl>Find contacts by name</FilterEl>
-      <input type="text" onChange={handleChange} />
+      <Input type="text" onChange={handleChange} />
     </label>
   );
 };
