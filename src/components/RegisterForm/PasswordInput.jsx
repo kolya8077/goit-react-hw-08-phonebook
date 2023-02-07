@@ -8,6 +8,9 @@ export const PasswordInput = props => {
   return (
     <InputGroup size="md">
       <Input
+        required
+        minLength={7}
+        maxLength={30}
         name={props.name}
         pr="4.5rem"
         type={show ? 'text' : 'password'}

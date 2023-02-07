@@ -3,7 +3,7 @@ import { Input, Button, FormLabel } from '@chakra-ui/react';
 
 import { PasswordInput } from './PasswordInput';
 
-import { logIn } from 'redux/auth/auth-operations';
+import { logIn } from 'redux/auth/authOperations';
 import { useDispatch } from 'react-redux';
 
 export const LogIn = () => {
@@ -24,7 +24,13 @@ export const LogIn = () => {
     <>
       <Form onSubmit={handleSubmit}>
         <FormLabel>email</FormLabel>
-        <Input name="email" placeholder="email" />
+        <Input
+          name="email"
+          placeholder="email"
+          required
+          minLength={3}
+          maxLength={30}
+        />
         <FormLabel>password</FormLabel>
         <PasswordInput />
         <Button type="submit" colorScheme="green">

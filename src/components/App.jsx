@@ -8,10 +8,10 @@ import { NotFound } from './NotFound/NotFound';
 import { RegisterForm } from './RegisterForm/RegisterForm';
 import { LogIn } from './LogIn/LogIn';
 import { HomePage } from './HomePage/HomePage';
-import { refreshUser } from 'redux/auth/auth-operations';
-import { RestrictedRoute } from 'redux/auth/RestrictedRoute';
-import { PrivateRoute } from 'redux/auth/PrivateRoute';
-import { selectIsRefreshing } from 'redux/auth/auth-selectors';
+import { refreshUser } from 'redux/auth/authOperations';
+import { RestrictedRoute } from 'routs/RestrictedRoute';
+import { PrivateRoute } from 'routs/PrivateRoute';
+import { selectIsRefreshing } from 'redux/auth/authSelectors';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -22,7 +22,6 @@ export default function App() {
   }, [dispatch]);
   return (
     !isRefreshing && (
-      <>
         <Routes>
           <Route path="/" element={<HeaderEl />}>
             <Route index element={<HomePage />} />
@@ -50,7 +49,6 @@ export default function App() {
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </>
     )
   );
 }

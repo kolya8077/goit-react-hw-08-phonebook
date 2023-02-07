@@ -8,7 +8,10 @@ export const PasswordInput = () => {
   return (
     <InputGroup size="md">
       <Input
-        name='password'
+        required
+        minLength={3}
+        maxLength={30}
+        name="password"
         pr="4.5rem"
         type={show ? 'text' : 'password'}
         placeholder="Enter password"

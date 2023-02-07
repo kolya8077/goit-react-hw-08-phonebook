@@ -2,7 +2,7 @@ import { Form } from './RegisterForm.styled';
 import { Input, Button, FormLabel } from '@chakra-ui/react';
 import { PasswordInput } from './PasswordInput';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/auth/auth-operations';
+import { register } from 'redux/auth/authOperations';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -27,13 +27,27 @@ export const RegisterForm = () => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <FormLabel>log in</FormLabel>
-        <Input name="name" type="text" placeholder="log in" />
+        <FormLabel>name</FormLabel>
+        <Input
+          name="name"
+          type="text"
+          required
+          minLength={3}
+          maxLength={30}
+          placeholder="name"
+        />
         <FormLabel>email</FormLabel>
-        <Input name="email" type="email" placeholder="email" />
+        <Input
+          name="email"
+          type="email"
+          required
+          minLength={3}
+          maxLength={30}
+          placeholder="email"
+        />
         <FormLabel>password</FormLabel>
         <PasswordInput name={'password'} />
-        <FormLabel>password</FormLabel>
+        <FormLabel>confirm password</FormLabel>
         <PasswordInput name={'passwordTwo'} />
         <Button type="submit" colorScheme="green">
           Log in

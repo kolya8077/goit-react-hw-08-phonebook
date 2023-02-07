@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from 'redux/auth/auth-selectors';
+import { getIsLoggedIn } from 'redux/auth/authSelectors';
 import { Outlet } from 'react-router-dom';
 import { AuthNav } from './AuthNav/AuthNav';
 import { Header, Loading, NavEl, HomeBox } from './headerEl.styled';
